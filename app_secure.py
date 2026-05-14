@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-ALLOWED_PATHS = ["fake_repo/README.md"]
+ALLOWED_PATHS = ["bestanden/leesbaar-bestand.md"]
 
 
 @app.get("/read_file")
