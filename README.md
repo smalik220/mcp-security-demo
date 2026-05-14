@@ -8,11 +8,11 @@ Demo die laat zien hoe een slecht geconfigureerde MCP-server beveiligingsrisico'
 
 ```
 mcp-security-demo/
-├── app_insecure.py        # Onveilige MCP-server (geen toegangscontrole)
-├── app_secure.py          # Beveiligde versie (allowlist + logging)
-├── fake_repo/
-│   ├── README.md          # Normaal bestand — mag worden gelezen
-│   └── secret.env         # Gevoelig bestand — mag NIET worden gelezen
+├── app_insecure.py        # Onveilige MCP-server 
+├── app_secure.py          # Beveiligde versie 
+├── bestanden/
+│   ├── leesbaar-bestand.md          # toegestaan bestand mag worden gelezen
+│   └── secret.env         # environment bestand mag NIET worden gelezen
 ├── requirements.txt       # Dependencies
 └── README.md
 ```
@@ -45,16 +45,16 @@ uvicorn app_secure:app --reload
 
 ```bash
 # Normaal bestand — beide servers geven dit terug
-curl "http://localhost:8000/read_file?path=fake_repo/README.md"
+curl "http://localhost:8000/read_file?path=bestanden/leesbaar-bestand.md"
 
 # Gevoelig bestand — insecure geeft het terug, secure geeft 403
-curl "http://localhost:8000/read_file?path=fake_repo/secret.env"
+curl "http://localhost:8000/read_file?path=bestanden/secret.env"
 ```
 
 | Request | Insecure server | Secure server |
 |---|---|---|
-| `fake_repo/README.md` | 200 OK | 200 OK |
-| `fake_repo/secret.env` | 200 OK — API keys zichtbaar | 403 Forbidden + logging |
+| `bestanden/leesbaar-bestand.md` | 200 OK | 200 OK |
+| `bestanden/secret.env` | 200 OK — API keys zichtbaar | 403 Forbidden + logging |
 
 ---
 
