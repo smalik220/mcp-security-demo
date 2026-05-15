@@ -5,12 +5,12 @@ client = TestClient(app)
 
 
 def test_allowed_file_returns_200():
-    response = client.get("/read_file?path=fake_repo/README.md")
+    response = client.get("/read_file?path=bestanden/leesbaar-bestand.md")
     assert response.status_code == 200
 
 
 def test_secret_file_returns_403():
-    response = client.get("/read_file?path=fake_repo/secret.env")
+    response = client.get("/read_file?path=bestanden/secret.env")
     assert response.status_code == 403
 
 
