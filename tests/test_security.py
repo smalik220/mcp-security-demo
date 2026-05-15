@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+from app_insecure import app 
 from app_secure import app
 
 client = TestClient(app)
