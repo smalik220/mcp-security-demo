@@ -56,17 +56,8 @@ Start een van de servers en volg de onderstaande stappen om de demo te testen vi
 | Pad | Verwacht resultaat |
 |---|---|
 | `bestanden/leesbaar-bestand.md` | Bestandsinhoud zichtbaar |
-| `bestanden/secret.env` | Insecure: API key zichtbaar — Secure: Access denied |
+| `bestanden/secret.env` | Insecure: Data zichtbaar — Secure: Access denied |
 
-
----
-
-## Demo
-
-| Pad | Insecure server | Secure server |
-|---|---|---|
-| `bestanden/leesbaar-bestand.md` | Bestandsinhoud zichtbaar | Bestandsinhoud zichtbaar |
-| `bestanden/secret.env` | API key zichtbaar | Access denied |
 
 ---
 
