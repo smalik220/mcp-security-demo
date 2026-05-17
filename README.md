@@ -43,6 +43,22 @@ mcp dev mcp_secure.py
 
 De MCP Inspector opent automatisch in de browser.
 
+## Testen
+
+Start een van de servers en volg de onderstaande stappen om de demo te testen via de MCP Inspector.
+
+1. Open de MCP Inspector via de link die automatisch in de terminal verschijnt na het starten van de server
+2. Navigeer naar het tabblad *Tools* en selecteer *read_file*
+3. Voer een pad in bij het veld *path* en klik op *Run Tool*
+
+*Voorbeeldpaden om te testen:*
+
+| Pad | Verwacht resultaat |
+|---|---|
+| `bestanden/leesbaar-bestand.md` | Bestandsinhoud zichtbaar |
+| `bestanden/secret.env` | Insecure: API key zichtbaar — Secure: Access denied |
+
+
 ---
 
 ## Demo
@@ -51,7 +67,6 @@ De MCP Inspector opent automatisch in de browser.
 |---|---|---|
 | `bestanden/leesbaar-bestand.md` | Bestandsinhoud zichtbaar | Bestandsinhoud zichtbaar |
 | `bestanden/secret.env` | API key zichtbaar | Access denied |
-| `../../etc/passwd` | Systeembestand zichtbaar | Access denied |
 
 ---
 

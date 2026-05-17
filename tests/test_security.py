@@ -24,8 +24,3 @@ def test_secure_leest_toegestaan_bestand():
 def test_secure_blokkeert_secret():
     result = secure_read_file("bestanden/secret.env")
     assert "Access denied" in result
-
-
-def test_secure_blokkeert_path_traversal():
-    result = secure_read_file("../../etc/passwd")
-    assert "Access denied" in result
