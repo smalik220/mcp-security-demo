@@ -48,8 +48,9 @@ De MCP Inspector opent automatisch in de browser.
 Start een van de servers en volg de onderstaande stappen om de demo te testen via de MCP Inspector.
 
 1. Open de MCP Inspector via de link die automatisch in de terminal verschijnt na het starten van de server
-2. Navigeer naar het tabblad *Tools* en selecteer *read_file*
-3. Voer een pad in bij het veld *path* en klik op *Run Tool*
+2. Klik op de button connected om de server te starten in MCP Inspector
+3. Navigeer naar het tabblad *Tools* en selecteer *read_file*
+4. Voer een pad in bij het veld *path* en klik op *Run Tool*
 
 *Voorbeeldpaden om te testen:*
 
