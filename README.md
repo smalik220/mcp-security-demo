@@ -8,12 +8,14 @@ Demo die laat zien hoe een slecht geconfigureerde MCP-server beveiligingsrisico'
 
 ```
 mcp-security-demo/
-├── app_insecure.py        # Onveilige MCP-server 
-├── app_secure.py          # Beveiligde versie 
+├── mcp_insecure.py        # Onveilige MCP-server (geen toegangscontrole)
+├── mcp_secure.py          # Beveiligde MCP-server (allowlist + logging)
 ├── bestanden/
-│   ├── leesbaar-bestand.md          # toegestaan bestand mag worden gelezen
-│   └── secret.env         # environment bestand mag NIET worden gelezen
-├── requirements.txt       # Dependencies
+│   ├── leesbaar-bestand.md    # Toegestaan bestand
+│   └── secret.env             # Gevoelig bestand — mag NIET worden gelezen
+├── tests/
+│   └── test_security.py       # Tests voor beide servers
+├── requirements.txt
 └── README.md
 ```
 
@@ -31,30 +33,25 @@ pip3 install -r requirements.txt
 
 **Insecure server:**
 ```bash
-uvicorn app_insecure:app --reload
+mcp dev mcp_insecure.py
 ```
 
 **Secure server:**
 ```bash
-uvicorn app_secure:app --reload
+mcp dev mcp_secure.py
 ```
+
+De MCP Inspector opent automatisch in de browser.
 
 ---
 
-## Demo requests
+## Demo
 
-```bash
-# Normaal bestand — beide servers geven dit terug
-curl "http://localhost:8000/read_file?path=bestanden/leesbaar-bestand.md"
-
-# Gevoelig bestand — insecure geeft het terug, secure geeft 403
-curl "http://localhost:8000/read_file?path=bestanden/secret.env"
-```
-
-| Request | Insecure server | Secure server |
+| Pad | Insecure server | Secure server |
 |---|---|---|
-| `bestanden/leesbaar-bestand.md` | 200 OK | 200 OK |
-| `bestanden/secret.env` | 200 OK — API keys zichtbaar | 403 Forbidden + logging |
+| `bestanden/leesbaar-bestand.md` | Bestandsinhoud zichtbaar | Bestandsinhoud zichtbaar |
+| `bestanden/secret.env` | API key zichtbaar | Access denied |
+| `../../etc/passwd` | Systeembestand zichtbaar | Access denied |
 
 ---
 
@@ -80,3 +77,4 @@ python3 -m pytest tests/ -v
 
 - [MCP Security & Authorization](https://modelcontextprotocol.io/docs/tutorials/security/authorization)
 - [OWASP Top 10 for LLMs](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+

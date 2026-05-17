@@ -1,20 +1,31 @@
-from fastapi.testclient import TestClient
-from app_insecure import app 
-from app_secure import app
-
-client = TestClient(app)
+from mcp_insecure import read_file as insecure_read_file
+from mcp_secure import read_file as secure_read_file
 
 
-def test_allowed_file_returns_200():
-    response = client.get("/read_file?path=bestanden/leesbaar-bestand.md")
-    assert response.status_code == 200
+# --- Insecure server tests ---
+
+def test_insecure_leest_toegestaan_bestand():
+    result = insecure_read_file("bestanden/leesbaar-bestand.md")
+    assert result is not None
 
 
-def test_secret_file_returns_403():
-    response = client.get("/read_file?path=bestanden/secret.env")
-    assert response.status_code == 403
+def test_insecure_lekt_secret():
+    result = insecure_read_file("bestanden/secret.env")
+    assert "Access denied" not in result
 
 
-def test_arbitrary_path_returns_403():
-    response = client.get("/read_file?path=app_secure.py")
-    assert response.status_code == 403
+# --- Secure server tests ---
+
+def test_secure_leest_toegestaan_bestand():
+    result = secure_read_file("bestanden/leesbaar-bestand.md")
+    assert "Access denied" not in result
+
+
+def test_secure_blokkeert_secret():
+    result = secure_read_file("bestanden/secret.env")
+    assert "Access denied" in result
+
+
+def test_secure_blokkeert_path_traversal():
+    result = secure_read_file("../../etc/passwd")
+    assert "Access denied" in result
